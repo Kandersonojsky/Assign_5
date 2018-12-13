@@ -57,7 +57,7 @@ sudo chown slurm: /var/log/slurm/slurmdbd.log
 sudo chmod 755 /var/log/slurm/slurmdbd.log
 
 # copies the innodb.cnf
-sudo cp /local/repository/source/innodb.cnf /etc/my.cnf.d/innodb.cnf
+sudo cp /local/repository/slurm_script/innodb.cnf /etc/my.cnf.d/innodb.cnf
 sudo chown slurm: /etc/my.cnf.d/innodb.cnf
 sudo chmod 777 /etc/my.cnf.d/innodb.cnf
 
