@@ -67,8 +67,8 @@ sudo chown slurm: /etc/my.cnf.d/innodb.cnf
 sudo chmod 777 /etc/my.cnf.d/innodb.cnf
 
 # borrowed these from another group
-sudo mysql  -sfu root < "/local/repository/slurm_script/starter.sql"
-sudo mysql "-ppassword" < "/local/repository/slurm_script/metadb.sql"
+sudo mysql  -sfu root -ppassword < "/local/repository/slurm_script/starter.sql"
+sudo mysql -ppassword < "/local/repository/slurm_script/metadb.sql"
 
 # disabling firewall
 sudo systemctl stop firewalld
