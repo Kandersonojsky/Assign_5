@@ -75,6 +75,11 @@ sudo touch /var/log/slurmctld.log
 sudo chown slurm: /var/log/slurmctld.log
 sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
+# PID PROBLEM AGAIN
+sudo touch /var/run/slurmctld.pid
+sudo chown slurm: /var/run/slurmctld.pid
+sudo chmod 777 /var/run/slurmctld.pid
+
 
 # open slurm default ports
 sudo firewall-cmd --permanent --zone=public --add-port=6817/udp
@@ -91,14 +96,21 @@ sudo chkconfig ntpd on
 sudo ntpdate pool.ntp.org
 sudo systemctl start ntpd
 
-# waiting for compute nodes to start, don't know if this is required
-while [ ! -f /scratch/compute_done.txt ] 
-do
-  sleep 5
-done
-sudo touch /scratch/compute_done.txt
 
 # trying to start slurm 
 sudo systemctl enable slurmctld.service
 sudo systemctl start slurmctld.service
 sudo systemctl status slurmctld.service
+
+#notify metadata slurmctld daemon is up
+sudo touch /scratch/head.fin
+
+#wait for callback from metadata
+while [ ! -f /scratch/cluster.fin ]
+do
+  sleep 5
+done
+
+# restart slurmctld daemon
+sudo systemctl restart slurmctld
+
