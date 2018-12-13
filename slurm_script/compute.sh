@@ -57,6 +57,10 @@ sudo chmod 755 /var/spool/slurmd
 sudo touch /var/log/slurmd.log
 sudo chown slurm: /var/log/slurmd.log
 
+sudo touch /var/run/slurmd.pid
+sudo chmod 777 /var/run/slurmd.pid
+sudo chown slurm: /var/run/slurmd.pid
+
 # disabling firewall
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
@@ -67,10 +71,15 @@ sudo chkconfig ntpd on
 sudo ntpdate pool.ntp.org
 sudo systemctl start ntpd
 
+#enable slurm daemon
+while [ ! -f /scratch/dbd.fin ]
+do
+  sleep 5
+done
 # trying to start slurm
 sudo systemctl enable slurmd.service
 sudo systemctl start slurmd.service
 sudo systemctl status slurmd.service
 
-# telling server that services are done
-sudo echo "I am done" > /scratch/compute_done.txt
+sudo touch /scratch/d.fin
+
