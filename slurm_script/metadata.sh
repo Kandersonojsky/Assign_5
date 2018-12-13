@@ -3,6 +3,8 @@
 # the folliwng came from https://www.slothparadise.com/how-to-install-slurm-on-centos-7-cluster/
 
 sudo yum install mariadb-server mariadb-devel -y
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
 
 # created global users so UID and GID is consistent across every node
 export MUNGEUSER=991
@@ -29,10 +31,6 @@ sudo cp /scratch/munge.key /etc/munge
 sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
-# starting the service
-sudo systemctl enable munge
-sudo systemctl start munge
-
 # installing slurm dependencies
 sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc -y
 sudo yum install hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
@@ -48,6 +46,7 @@ sudo yum --nogpgcheck localinstall /software/slurm-rpms/* -y
 
 # copying slurm.conf file
 sudo cp /local/repository/source/slurm.conf /etc/slurm
+sudo cp /local/repository/source/slurmdbd.conf /etc/slurm
 
 # setting up configurations and files
 sudo mkdir /var/log/slurm
@@ -55,13 +54,21 @@ sudo chown slurm: /var/log/slurm
 sudo chmod 755 /var/log/slurm
 sudo touch /var/log/slurm/slurmdbd.log
 sudo chown slurm: /var/log/slurm/slurmdbd.log
+sudo chmod 755 /var/log/slurm/slurmdbd.log
+
+# KEEPS ASKING FOR A PID??
 sudo touch /var/run/slurmdbd.pid
 sudo chown slurm: /var/run/slurmdbd.pid
-sudo mkdir /accounting_storage
-sudo mkdir /accounting_storage/mysql
-sudo chown slurm: /accounting_storage/mysql
-sudo chmod 755 /accounting_storage/mysql
+sudo chmod 777 /var/run/slurmdbd.pid
 
+# copies the innodb.cnf
+sudo cp /local/repository/source/innodb.cnf /etc/my.cnf.d/innodb.cnf
+sudo chown slurm: /etc/my.cnf.d/innodb.cnf
+sudo chmod 777 /etc/my.cnf.d/innodb.cnf
+
+# borrowed these from another group
+sudo mysql  -sfu root < "/local/repository/slurm_script/setup.sql"
+sudo mysql "-ppassword" < "/local/repository/slurm_script/metadb.sql"
 
 # disabling firewall
 sudo systemctl stop firewalld
@@ -74,6 +81,17 @@ sudo ntpdate pool.ntp.org
 sudo systemctl start ntpd
 
 # trying to start slurm
-sudo systemctl enable slurmdbd.service
-sudo systemctl start slurmdbd.service
-sudo systemctl status slurmdbd.service
+ sudo systemctl enable slurmdbd.service
+ sudo systemctl start slurmdbd.service
+ 
+ sudo touch /scratch/dbd.fin
+
+#wait for callback from head node
+while [ ! -f /scratch/head.fin ]
+do
+  sleep 5
+done
+
+ yes | sudo sacctmgr add cluster cluster
+ 
+ sudo touch /scratch/cluster.fin
