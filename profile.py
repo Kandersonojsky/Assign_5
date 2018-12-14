@@ -35,7 +35,7 @@ prefixForIP = "192.168.1."
 
 link = request.LAN("lan")
 
-for i in range(6):
+for i in range(15):
   
   if i == 0:
     node = request.XenVM("head")
@@ -44,6 +44,7 @@ for i in range(6):
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/head_setup.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 777 /local/repository/slurm_script/head.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/slurm_script/head.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 777 /local/repository/script_for/run_them"))
   
   elif i == 1:
     node = request.XenVM("metadata")
@@ -89,8 +90,8 @@ for i in range(6):
   node.addService(pg.Execute(shell="sh", command="sudo /local/repository/passwordless.sh"))
   
   # This code segment is added per Benjamin Walker's solution to address the StrictHostKeyCheck issue of ssh
-  node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/ssh_setup_Two.sh"))
-  node.addService(pg.Execute(shell="sh", command="sudo -H -u ka837933 bash -c '/local/repository/ssh_setup_Two.sh'"))
+  node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/ssh_setup.sh"))
+  node.addService(pg.Execute(shell="sh", command="sudo -H -u ka837933 bash -c '/local/repository/ssh_setup.sh'"))
   
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
