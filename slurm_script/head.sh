@@ -82,9 +82,9 @@ sudo chown slurm: /var/log/slurmctld.log
 sudo touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 sudo chown slurm: /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 # PID PROBLEM AGAIN
-sudo touch /var/run/slurmctld.pid
-sudo chown slurm: /var/run/slurmctld.pid
-sudo chmod 777 /var/run/slurmctld.pid
+sudo touch /var/run/slurmctld
+#sudo chown slurm: /var/run/slurmctld.pid
+sudo chmod 777 /var/run/slurmctld
 
 
 # open slurm default ports
