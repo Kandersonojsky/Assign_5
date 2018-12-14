@@ -56,6 +56,9 @@ sudo cp /local/repository/source/slurm.conf /etc/slurm
 sudo cp /local/repository/source/slurmdbd.conf /etc/slurm
 
 # setting up configurations and files
+sudo mkdir /var/spool/slurmctld
+sudo chown slurm: /var/spool/slurmctld
+sudo chmod 755 /var/spool/slurmctld
 sudo mkdir /var/log/slurm
 sudo chown slurm: /var/log/slurm
 sudo chmod 755 /var/log/slurm
