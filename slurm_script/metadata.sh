@@ -69,9 +69,9 @@ sudo chown slurm: /etc/my.cnf.d/innodb.cnf
 sudo chmod 777 /etc/my.cnf.d/innodb.cnf
 
 # KEEPS ASKING FOR A PID??
-sudo touch /var/run/slurmdbd.pid
-sudo chown slurm: /var/run/slurmdbd.pid
-sudo chmod 777 /var/run/slurmdbd.pid
+sudo touch /var/run/slurmdbd
+#sudo chown slurm: /var/run/slurmdbd.pid
+sudo chmod 777 /var/run/slurmdbd
 
 
 
