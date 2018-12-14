@@ -31,7 +31,6 @@ sudo cp /scratch/munge.key /etc/munge
 sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
-sleep 300
 sudo touch /scratch/metakey.txt
 
 sudo systemctl enable munge
