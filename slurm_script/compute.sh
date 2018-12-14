@@ -65,7 +65,7 @@ sudo chown slurm: /var/log/slurmd.log
 
 # the pid issue again
 sudo touch /var/run/slurmd
-sudo chmod 777 /var/run/slurmd.pid
+sudo chmod 777 /var/run/slurmd
 #sudo chown slurm: /var/run/slurmd
 
 # disabling firewall
