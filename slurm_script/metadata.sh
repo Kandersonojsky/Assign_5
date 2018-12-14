@@ -34,6 +34,9 @@ sudo chmod 0700 /etc/munge/ /var/log/munge/
 sleep 300
 sudo touch /scratch/metakey.txt
 
+sudo systemctl enable munge
+sudo systemctl start munge
+
 # installing slurm dependencies
 sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc -y
 sudo yum install hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
