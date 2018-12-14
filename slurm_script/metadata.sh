@@ -31,6 +31,9 @@ sudo cp /scratch/munge.key /etc/munge
 sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
+sleep 300
+sudo touch /scratch/metakey.txt
+
 # installing slurm dependencies
 sudo yum install openssl openssl-devel pam-devel numactl numactl-devel hwloc -y
 sudo yum install hwloc-devel lua lua-devel readline-devel rrdtool-devel ncurses-devel man2html libibmad libibumad -y
