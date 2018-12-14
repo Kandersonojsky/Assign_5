@@ -37,7 +37,7 @@ sudo chown -R munge: /etc/munge/ /var/log/munge/
 sudo chmod 0700 /etc/munge/ /var/log/munge/
 
 # make sure that dbd node has the key
-while [ ! -f /scratch/munge.key ]
+while [ ! -f /scratch/metakey.txt ]
 do
   sleep 5
 done
