@@ -44,7 +44,6 @@ for i in range(15):
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/head_setup.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 777 /local/repository/slurm_script/head.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/slurm_script/head.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 777 /local/repository/script_for/run_them"))
   
   elif i == 1:
     node = request.XenVM("metadata")
