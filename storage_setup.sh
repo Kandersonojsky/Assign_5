@@ -28,3 +28,4 @@ sudo firewall-cmd --permanent --zone=public --add-service=rpc-bind
 sudo firewall-cmd --reload
 
 sudo cp /local/repository/source/* /scratch
+sudo cp /local/repository/script_for/run_them.sh /scratch
